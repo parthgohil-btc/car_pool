@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require jquery.blockUI
-//= require turbolinks
 //= require underscore
 //= require gmaps/google
 //= require bootstrap
