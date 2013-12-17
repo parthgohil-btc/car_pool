@@ -1,0 +1,8 @@
+.row.row-width-1200
+	.span5.col-md-offset-1
+		.h2 Address
+		= form_tag create_address_path, method: :post do
+			= render :partial => 'address_form'
+			%dt
+			%dd
+				= submit_tag 'Submit', class: "btn btn-primary"

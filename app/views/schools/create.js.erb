@@ -1,0 +1,2 @@
+$('#dialog').dialog( "close" );
+$('#school-index').html('<%= escape_javascript(render :partial => 'schools_index', :locals => {schools: @schools}) %>');

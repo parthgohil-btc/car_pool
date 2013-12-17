@@ -1,0 +1,7 @@
+.row
+	.span5.col-md-offset-1
+		= form_for(@student, url: create_student_path(@student), method: :post, remote: true) do |student|
+			= render :partial => 'student_form', locals: { student: student }
+			%dt
+			%dd
+				= student.button 'create', class: "btn btn-primary"

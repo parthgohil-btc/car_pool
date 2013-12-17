@@ -1,0 +1,2 @@
+$('#dialog').dialog( "close" );
+$('#car-pool-index').html('<%= escape_javascript(render :partial => 'car_pool_index', :locals => { car_pools: @car_pools, action: "show_car_pools" }) %>');

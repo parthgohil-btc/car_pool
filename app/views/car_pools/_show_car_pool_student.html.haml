@@ -1,0 +1,24 @@
+%table.table.table-hover
+	%th
+		name
+	%th
+		school
+	%th
+		standard
+	%th
+		address
+	%th
+	-unless @students.nil?
+		- @students.each do |student|
+			%tr
+				%td
+					= student.name
+				%td
+					= student.school.name
+				%td
+					= student.stardard
+				%td
+					= student.user.address.address
+				%td
+					-if student.user.id == current_user.id
+						= link_to "leave the car pool", leave_car_pool_path(student.id, @students.size, @school_id, @distance), method: :post, remote: true

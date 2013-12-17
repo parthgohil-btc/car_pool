@@ -1,0 +1,7 @@
+/home/parth/rails_project/project/routes/config/environment.rb:7:in `<top (required)>': uninitialized constant Rails::Initializer (NameError)
+	from /home/parth/.rvm/gems/ruby-2.0.0-p247/gems/railties-3.2.14/lib/rails/application.rb:103:in `require_environment!'
+	from /home/parth/.rvm/gems/ruby-2.0.0-p247/gems/railties-3.2.14/lib/rails/commands/runner.rb:44:in `<top (required)>'
+	from /home/parth/.rvm/gems/ruby-2.0.0-p247/gems/railties-3.2.14/lib/rails/commands.rb:64:in `require'
+	from /home/parth/.rvm/gems/ruby-2.0.0-p247/gems/railties-3.2.14/lib/rails/commands.rb:64:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'

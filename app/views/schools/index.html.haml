@@ -1,0 +1,10 @@
+.row-width-1200
+	.span3.col-md-offset-1
+		.row.margin-left-0.padding-bottom-8 
+			.nav.pull-left
+				%a.btn.btn-primary{ :href => new_school_path, "data-remote" => true, method: :post }
+					Create school
+		#school-index= render partial: 'schools_index', locals: { schools: @schools }
+		%br
+		#schools-map=render partial: 'routes/map', locals: { hash: @hash }
+		%br

@@ -1,0 +1,31 @@
+%h4 Student's
+%table.table.table-hover
+	%th
+		name
+	%th
+		school
+	%th
+		standard
+	%th
+		car pool group
+	%th
+	- unless students.nil?
+		- students.each do |student|
+			%tr
+				%td
+					- if params[:controller] == 'students' && student.user.id == current_user.id
+						= link_to student.name, edit_student_path(student.id), method: :get, remote: true
+					- else
+						= student.name
+				%td
+					= student.school.name
+				%td
+					= student.stardard
+				%td
+					-if student.car_pool.present?
+						= student.car_pool.name
+					- else
+						= "-"
+				%td
+					- if params[:controller] == 'students' && student.user.id == current_user.id
+						= link_to "delete", delete_student_path(student.id), method: :post, remote: true

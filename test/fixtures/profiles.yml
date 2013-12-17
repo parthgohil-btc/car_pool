@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  father_name: MyString
+  mother_name: MyString
+  father_contact_number: 1
+  mother_contact_number: 1
+  user_id: 1
+
+two:
+  father_name: MyString
+  mother_name: MyString
+  father_contact_number: 1
+  mother_contact_number: 1
+  user_id: 1

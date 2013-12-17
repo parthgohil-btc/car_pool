@@ -1,0 +1,23 @@
+.row-fluid
+	.span5.col-md-offset-1
+		- if @students.empty?
+			No student pending to join the car pool
+		-else
+			= form_for(@car_pool, url: create_car_pools_path(@car_pool), method: :post, remote: true) do |car_pool|
+				%dt Select school:
+				%dd= car_pool.select "school_id", options_from_collection_for_select(@schools, "id", "name"), :prompt => "Please select", class: "schools"
+				%dt Select students
+				%dd
+					- @students.map do |student|
+						= check_box_tag 'student_ids[]', student.id, false, :class => "#{student.school_id} students_check_box", :disabled => true
+						= student.name
+						%br
+				%dt Car pool name:
+				%dd
+					= car_pool.text_field :name
+				%dt Car pool limit:
+				%dd
+					= car_pool.text_field :member_limit
+				%dt
+				%dd
+					= car_pool.button 'Submit', class: "btn btn-primary"

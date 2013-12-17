@@ -1,0 +1,9 @@
+%dt Name:
+%dd
+	= student.text_field :name
+%dt School:
+%dd
+	= student.collection_select :school_id, School.all, :id, :name, prompt: true
+%dt Standard:
+%dd
+	= student.text_field :stardard

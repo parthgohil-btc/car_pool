@@ -1,0 +1,13 @@
+.row-fluid
+	.span5.col-md-offset-1
+		- if @students.empty?
+			%h3 No student to join the car pool
+		- else
+			= form_tag join_path(@car_pool_id, @school_id, @distance), method: :post, remote: true do
+				%dt Select students
+				%dd
+					- @students.map do |student|
+						= check_box_tag 'students_id[]', student.id, false, :class => "#{student.school_id} students_check_box"
+						= student.name
+						%br
+				= submit_tag 'Submit', class: "btn btn-primary"

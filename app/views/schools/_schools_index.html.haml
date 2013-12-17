@@ -1,0 +1,14 @@
+%table.table.table-hover
+	%th
+		name
+	%th
+		address
+	%th
+	- schools.each do |school|
+		%tr
+			%td
+				= link_to school.name, edit_school_path(school.id), method: :get, remote: true
+			%td
+				= school.address.address
+			%td
+				= link_to "delete", delete_school_path(school.id), method: :post, remote: true

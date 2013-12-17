@@ -1,0 +1,7 @@
+.row.row-width-1200
+	.span5.col-md-offset-1
+		= form_for(school, url: update_school_path(school.id, school), method: :post, remote: true) do |s|
+			= render :partial => 'school_form', locals: { school: s }
+			%dt
+			%dd
+				= s.button 'update', class: "btn btn-primary"

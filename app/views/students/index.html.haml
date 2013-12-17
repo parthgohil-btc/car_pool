@@ -1,0 +1,8 @@
+.controls-row.row-width-1200
+	.span3.col-md-offset-1
+		.row.margin-left-0.padding-bottom-8 
+			.nav.pull-left
+				%a.btn.btn-primary{ :href => new_student_path, "data-remote" => true, method: :post }
+					Create student
+		#students-index= render partial: 'students_index', locals: { students: @students }
+		%br

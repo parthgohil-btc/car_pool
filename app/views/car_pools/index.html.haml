@@ -1,0 +1,7 @@
+.controls-row.row-width-1200
+	.span3.col-md-offset-1
+		.row.margin-left-0.padding-bottom-8 
+			.nav.pull-left
+				%a.btn.btn-primary{ :href => new_car_pool_path, "data-remote" => true, method: :post }
+					Create car pool
+		#car-pool-index= render partial: 'car_pool_index', locals: { car_pools: @car_pools, action: "show_car_pools" }
