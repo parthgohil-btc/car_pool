@@ -1,3 +1,4 @@
+= render partial: "layouts/flash"
 .row.row-width-1200
 	.span5.col-md-offset-1
 		= form_for(school, url: update_school_path(school.id, school), method: :post, remote: true) do |s|

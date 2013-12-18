@@ -1,1 +1,2 @@
 $('#students-index').html('<%= escape_javascript(render :partial => 'students_index', :locals => {students: @students}) %>');
+$('#flash_div').html('<%= escape_javascript(render :partial => 'layouts/flash') %>');

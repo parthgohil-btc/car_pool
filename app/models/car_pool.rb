@@ -9,4 +9,8 @@ class CarPool < ActiveRecord::Base
   has_many :users, through: :car_pool_users
   belongs_to :school
   has_one :schedule, dependent: :destroy
+
+  scope :loan_pending_to_return, -> { where status: 'pending' }  
+  scope :find_car_pools, lambda { |car_pools_id| where('id = ?', car_pools_id) }
+
 end

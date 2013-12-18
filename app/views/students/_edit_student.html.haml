@@ -1,3 +1,4 @@
+= render partial: "layouts/flash"
 .row
 	.span5.col-md-offset-1
 		= form_for(@student, url: update_student_path(@student.id, @student), method: :post, remote: true) do |student|

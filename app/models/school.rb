@@ -7,5 +7,6 @@ class School < ActiveRecord::Base
   has_many :students
   has_many :car_pools
   belongs_to :address, dependent: :destroy
+  scope :find_all_schools, lambda { |school_id| where('id = ?', school_id) }
 
 end

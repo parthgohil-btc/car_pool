@@ -25,6 +25,7 @@ class CarPoolsController < ApplicationController
       car_pools_id = current_user.car_pools.pluck(:id)
       @car_pools = CarPool.where(id: car_pools_id).page(params[:page]).per(5)
     else
+      flash.now[:alert] = "Please fill the following fields"
       @students = current_user.students.where(car_pool_id: nil)
       school_list(@students)
       @car_pool = CarPool.new(params[:car_pool])
