@@ -12,9 +12,11 @@ class SchoolsController < ApplicationController
       school = School.create(params[:school])
       if school.save
         @schools = School.all
+        flash.now[:notice] = "School created"
       else
         address.destroy
         render "new"
+        flash.now[:alert] = "Error has ocurred"
       end
     else
 
@@ -38,7 +40,7 @@ class SchoolsController < ApplicationController
     end
     if school.update_attributes(params[:school])
       school.address.update_attributes(address: school_address)
-      flash[:notice] = "school updated"
+      flash.now[:notice] = "school updated"
     else
       flash[:alert] = "update failed"
     end
@@ -48,8 +50,9 @@ class SchoolsController < ApplicationController
   def delete
     if School.find(params[:id]).destroy
       @schools = School.all
+      flash.now[:notice] = "School deleted"
     else
-
+      flash[:alert] = "Failed to delete the school"
     end
 
   end
