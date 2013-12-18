@@ -8,5 +8,5 @@ class CarPool < ActiveRecord::Base
   has_many :car_pool_users
   has_many :users, through: :car_pool_users
   belongs_to :school
-  has_one :schedule
+  has_one :schedule, dependent: :destroy
 end

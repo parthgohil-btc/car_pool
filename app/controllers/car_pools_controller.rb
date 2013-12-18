@@ -41,7 +41,6 @@ class CarPoolsController < ApplicationController
 
   def search_car_pool
     @action = params[:commit]
-    logger.info "--@action #{@action}--------------#{params[:commit]}"
     if params[:school_id].present?
       map
     else
@@ -70,6 +69,7 @@ class CarPoolsController < ApplicationController
       car_pool.destroy
       render :js => "window.location = '/car_pools'"
     else
+      Schedule.update_schedule(car_pool) if student.schedule.present?
       car_pool.update_attributes(number_of_member: car_pool.number_of_member - 1)
       student.update_attributes(car_pool_id: nil)
       current_user_students_id = current_user.students.where(car_pool_id: car_pool.id)

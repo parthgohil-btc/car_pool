@@ -7,5 +7,5 @@ class Student < ActiveRecord::Base
   belongs_to :car_pool
   belongs_to :school
   belongs_to :user
-  has_one :schedule
+  has_one :schedule, :dependent => :nullify
 end

@@ -31,6 +31,12 @@ class StudentsController < ApplicationController
   def delete
     student = Student.find(params[:id])
     if student.present?
+      if student.schedule.present?
+        Schedule.set_schedule(student.car_pool)
+      end
+      unless student.car_pool.students.present?
+        student.car_pool.destroy
+      end
       student.destroy
       @students = current_user.students
       flash.now[:notice] = "student deleted successfully"

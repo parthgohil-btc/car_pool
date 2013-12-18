@@ -4,18 +4,21 @@ class Schedule < ActiveRecord::Base
   validates :student_id, :car_pool_id, numericality: { only_integer: true }, presence: true
   
   belongs_to :student
-  belongs_to :car_pool
+  belongs_to :car_pool, dependent: :destroy
 
-	def self.set_schedule
+	def self.set_schedules
 		car_pools = CarPool.all
 		car_pools.each do |car_pool|
-			schedule = Schedule.find(car_pool.id)
-			student_id = find_next_to_drive(car_pool, schedule)
-			schedule.update_attributes(student_id: student_id)
-			student = Student.find(student_id)
-			Reminder.car_pool_reminder(student.user.email).deliver
+			update_schedule(car_pool)
 		end
+	end
 
+	def self.update_schedule(car_pool)
+		schedule = Schedule.find_by_car_pool_id(car_pool.id)
+		student_id = find_next_to_drive(car_pool, schedule)
+		schedule.update_attributes(student_id: student_id)
+		student = Student.find(student_id)
+		Reminder.car_pool_reminder(student.user.email).deliver
 	end
 
 	def self.find_next_to_drive(car_pool, schedule)
