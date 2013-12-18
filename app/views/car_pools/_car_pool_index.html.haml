@@ -12,24 +12,25 @@
 		-if params[:action] == "index"
 			Have to drive today
 	%th
-	- if car_pools.nil?
-		=# "No record found"
-	- else
+
+	- unless car_pools.nil?
 		- car_pools.map do |car_pool|
 			%tr
 				%td
 					= car_pool.name
 				%td
-					= link_to car_pool.number_of_member, show_car_pool_path(car_pool.id, car_pool.school_id, @distance.presence || 2), method: :get, remote: true
+					= link_to car_pool.number_of_member, show_car_pool_path(car_pool.id, car_pool.school_id, @distance.presence || 2, @action.presence || 'index'), method: :get, remote: true
 				%td
 					= car_pool.member_limit
 				%td
 					= car_pool.school.name
 				%td
-					- if params[:action] == "index"
+					- if params[:action] == "index" || params[:action] == "create"
 						= car_pool.schedule.student.user.email
 				%td
 					- if params[:action] == 'search_car_pool' && car_pool.number_of_member <= 4
 						= link_to "join", join_car_pool_path(car_pool.id, car_pool.school_id, @distance), remote: true
-- unless car_pools.nil?
+- if car_pools.nil?
+	%h5 Car pool record found
+- else
 	= paginate car_pools, params: { action: action, school_id: @school_id, distance: @distance }, remote: true, window: 1, left: 1, right: 1

@@ -8,16 +8,15 @@ class StudentsController < ApplicationController
   end
 
   def create
-    params[:student][:user_id] = current_user.id
-    student = Student.create(params[:student])
+    student = Student.create(name: params[:student][:name], user_id: current_user.id, stardard: params[:student][:stardard].to_i, school_id: params[:student][:school_id].to_i)
     if student.save
-      flash.now[:notice] = "new student created successfully"
+      flash[:notice] = "new student created successfully"
       @students = current_user.students
       # redirect_to root_path
     else
       flash[:alert] = "student create failed"
-      @student = params[:student]
-      render new_address
+      @student = Student.new(params[:student])
+      render :new
     end
   end
 
@@ -39,12 +38,13 @@ class StudentsController < ApplicationController
   end
 
   def update
-    if Student.find(params[:id]).try(:update_attributes, params[:student])
+    @student = Student.find(params[:id])
+    if @student.update_attributes(params[:student])
       flash.now[:notice] = "student updated successfully"
       @students = current_user.students
     else
       flash.now[:alert] = "please check student details fields"
-      render "edit"
+      render :edit
     end
   end
 

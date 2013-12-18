@@ -1,6 +1,8 @@
 class Schedule < ActiveRecord::Base
   attr_accessible :student_id, :car_pool_id
 
+  validates :student_id, :car_pool_id, numericality: { only_integer: true }, presence: true
+  
   belongs_to :student
   belongs_to :car_pool
 

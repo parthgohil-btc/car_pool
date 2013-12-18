@@ -15,8 +15,9 @@ class HomeController < ApplicationController
 		if profile.save
 			redirect_to new_address_path
 		else
-			@profile = params[:profile]
-			render new_profile
+			@profile = Profile.new(params[:profile])
+			flash[:error] = "Error has occurred"
+			render :new_profile
 		end
 	end
 
@@ -30,9 +31,9 @@ class HomeController < ApplicationController
 			redirect_to root_path
 			flash[:notice] = "Profile updated"
 		else
-			@profile = params[:profile]
-			render "edit_profile"
-			flash[:error] = "Error has ocurred will updating profile"
+			@profile = Profile.new(params[:profile])
+			flash.now[:alert] = "Error has ocurred will updating profile"
+			render :edit_profile
 		end
 	end
 
@@ -46,8 +47,8 @@ class HomeController < ApplicationController
 			current_user.update_attributes(address_id: address.id)
 			redirect_to root_path
 		else
-			@address = params[:address]
-			render new_address
+			flash.now[:alert] = "Error has occurred"
+			render :new_address
 		end
 	end
 
@@ -61,6 +62,7 @@ class HomeController < ApplicationController
 			flash[:notice] = "Address updated"
 		else
 			flash[:error] = "Please enter address"
+			render :edit_address
 		end
 	end
 end

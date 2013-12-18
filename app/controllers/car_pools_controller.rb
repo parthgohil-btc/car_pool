@@ -12,7 +12,9 @@ class CarPoolsController < ApplicationController
   end
 
   def create
-    params[:car_pool][:number_of_member] = params[:student_ids].size
+    if params[:student_ids].present?
+      params[:car_pool][:number_of_member] = params[:student_ids].length
+    end
     car_pool = CarPool.create(params[:car_pool])
     if car_pool.save
       students = Student.where(id: params[:student_ids])
@@ -22,19 +24,31 @@ class CarPoolsController < ApplicationController
       car_pools_id = current_user.car_pools.pluck(:id)
       @car_pools = CarPool.where(id: car_pools_id).page(params[:page]).per(5)
     else
-      @car_pool = params[:car_pool]
+      @students = current_user.students.where(car_pool_id: nil)
+      school_list(@students)
+      @car_pool = CarPool.new(params[:car_pool])
       render "new"
     end
   end
 
   def show
+    @action = params[:pre_action]
     @students = Student.where(car_pool_id: params[:id])
     @distance = params[:distance]
     @school_id = params[:school_id]
   end
 
   def search_car_pool
-    map
+    @action = params[:commit]
+    logger.info "--@action #{@action}--------------#{params[:commit]}"
+    if params[:school_id].present?
+      map
+    else
+      @students = current_user.students
+      school_list(@students)
+      flash.now[:notice] = "Please select the school"
+      render :search
+    end
   end
 
   def show_car_pools

@@ -12,7 +12,7 @@ Routes::Application.routes.draw do
   post '/car_pools/:id/:size/:school_id/:distance/leave_car_pool', to: 'car_pools#leave_car_pool', as: 'leave_car_pool'
   get '/car_pools/show_car_pools', to: 'car_pools#show_car_pools', as: 'show_car_pools'
   get '/car_pools/show_searched_car_pools', to: 'car_pools#show_searched_car_pools', as: 'show_searched_car_pools'
-  get '/car_pools/:id/:school_id/:distance/show', to: 'car_pools#show', as: 'show_car_pool'
+  get '/car_pools/:id/:school_id/:distance/:pre_action/show', to: 'car_pools#show', as: 'show_car_pool'
   resources :car_pools
 
   resources :schedules

@@ -1,7 +1,7 @@
 .row.row-width-1200
 	.span5.col-md-offset-1
 		.h2 Profile Details
-		= form_for(@profile, url: create_profile_path(@profile), method: :post) do |profile|
+		= form_for(@profile, url: create_profile_path, method: :post) do |profile|
 			= render :partial => 'profile_form', locals: { profile: profile }
 			%dt
 			%dd
