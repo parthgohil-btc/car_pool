@@ -1,4 +1,6 @@
 class StudentsController < ApplicationController
+  before_filter :authenticate_user!, :check_address_and_profile, except: :index
+  
   def index
     @students = current_user.students
   end

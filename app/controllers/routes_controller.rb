@@ -1,13 +1,15 @@
 class RoutesController < ApplicationController
+  before_filter :authenticate_user!,  except: :index
 
   def index
     if user_signed_in?
-      current_user_address = Address.find(current_user.address_id)
-      @hash = Gmaps4rails.build_markers(current_user_address) do |address, marker|
-        marker.lat address.latitude
-        marker.lng address.longitude
-        marker.infowindow "me"
-      end
+    #   current_user_address = Address.find(current_user.address_id)
+    #   @hash = Gmaps4rails.build_markers(current_user_address) do |address, marker|
+    #     marker.lat address.latitude
+    #     marker.lng address.longitude
+    #     marker.infowindow "me"
+    #   end
+      check_address_and_profile
     end
   end
 

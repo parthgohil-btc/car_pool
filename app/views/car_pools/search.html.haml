@@ -1,19 +1,22 @@
 .controls-row.row-width-1100
 	.span5.col-md-offset-1
-		= form_tag search_car_pools_path, method: :get, remote: true do
-			%dt School:
-			%dd
-				= select_tag "school_id", options_from_collection_for_select(@schools, "id", "name"), :prompt => "Please select"
-			%dt Distance:
-			%dd
-				= text_field_tag :distance, nil
-			%dt
-			%dd
-				= submit_tag "search", class: "btn btn-primary margin-top-3 margin-bottom-10 map-load"
-		%br
-		/ #same-school-student-nearby.row-width-1100
-		%br
-		.row-width-1100
-			#search-car-pool
-		%br
-		#car-pool-search=# render partial: 'routes/map', locals: { hash: @hash }
+		-if current_user.students.present?
+			= form_tag search_car_pools_path, method: :get, remote: true do
+				%dt School:
+				%dd
+					= select_tag "school_id", options_from_collection_for_select(@schools, "id", "name"), :prompt => "Please select"
+				%dt Distance:
+				%dd
+					= text_field_tag :distance, nil
+				%dt
+				%dd
+					= submit_tag "search", class: "btn btn-primary margin-top-3 margin-bottom-10 map-load"
+			%br
+			/ #same-school-student-nearby.row-width-1100
+			%br
+			.row-width-1100
+				#search-car-pool
+			%br
+			#car-pool-search=# render partial: 'routes/map', locals: { hash: @hash }
+		-else
+			%h3 No student found

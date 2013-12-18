@@ -1,4 +1,5 @@
 class CarPoolsController < ApplicationController
+  before_filter :authenticate_user!, :check_address_and_profile
   
   def index
     car_pools_id = current_user.car_pools.pluck(:id)
@@ -176,5 +177,6 @@ class CarPoolsController < ApplicationController
     school_id = @students.pluck(:school_id)
     @schools = School.find_all_by_id(school_id).uniq
   end
+
 
 end

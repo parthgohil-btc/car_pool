@@ -1,4 +1,6 @@
 class SchoolsController < ApplicationController
+  before_filter :authenticate_user!, :check_address_and_profile, except: :index
+  
   def index
     school_map
   end

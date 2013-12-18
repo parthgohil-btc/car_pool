@@ -9,4 +9,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+	def check_address_and_profile
+    if !current_user.profile.present?
+      redirect_to new_profile_path
+    elsif !current_user.address.present?
+      redirect_to new_address_path
+    end
+  end
 end
