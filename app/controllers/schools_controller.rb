@@ -32,15 +32,15 @@ class SchoolsController < ApplicationController
   end
 
   def update
-    school = School.find(params[:id])
-    unless params[:address].nil?
+    @school = School.find(params[:id])
+    if params[:address].present? && @school.update_attributes(params[:school])
       school_address = params[:school][:name] + ", " + params[:address]
-    end
-    if school.update_attributes(params[:school])
-      school.address.update_attributes(address: school_address)
-      flash[:notice] = "school updated"
+      @school.address.update_attributes(address: school_address)
+      @schools = School.all
+      flash.now[:notice] = "school updated"
     else
-      flash[:alert] = "update failed"
+      flash.now[:alert] = "update failed"
+      render :edit
     end
     school_map
   end
@@ -55,7 +55,7 @@ class SchoolsController < ApplicationController
   end
   
   def edit
-    @School = School.find(params[:id])
+    @school = School.find(params[:id])
   end
 
   private
