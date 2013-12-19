@@ -153,7 +153,7 @@ class CarPoolsController < ApplicationController
     @car_pools = CarPool.where(id: car_pools_id).uniq.page(params[:page]).per(5)
     # @students = @students.flatten
     Rails.logger.info "near_by_address ------------#{near_by_address}"
-    Rails.logger.info "current_user_address---------#{current_user_address}"
+    Rails.logger.info "current_user_address---------#{current_user_address.inspect}"
     addresses = [near_by_address, current_user_address, school]
   end
 
@@ -163,7 +163,9 @@ class CarPoolsController < ApplicationController
       marker.lat address.latitude
       marker.lng address.longitude
       distance = addresses[1].distance_from([address.latitude, address.longitude])
-      if distance == 0
+      Rails.logger.info "-address.user----#{address.user}"
+      Rails.logger.info "-current_user----#{current_user}"
+      if distance == 0 && address.user == current_user
         infowindow = "me"
         set_map_bubble(marker, "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=me|F00000|000000")
       else
