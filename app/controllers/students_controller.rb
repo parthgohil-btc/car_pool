@@ -10,8 +10,9 @@ class StudentsController < ApplicationController
   end
 
   def create
-    student = Student.create(name: params[:student][:name], user_id: current_user.id, stardard: params[:student][:stardard].to_i, school_id: params[:student][:school_id].to_i)
-    if student.save
+    logger.info "------params[:student][:school_id].nil?---..#{params[:student][:school_id]}-/-------#{params[:student][:school_id].nil?}"
+    student = Student.new(name: params[:student][:name], user_id: current_user.id, stardard: params[:student][:stardard].to_i, school_id: params[:student][:school_id].to_i)
+    if !params[:student][:stardard].empty? && student.save
       flash.now[:notice] = "new student created successfully"
       @students = current_user.students
       # redirect_to root_path

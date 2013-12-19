@@ -19,13 +19,16 @@
 						= student.name
 				%td
 					- if student.school.present?
-						= student.school.name.presence 
+						= student.school.name 
 					- else
 						="-"
 				%td
 					= student.stardard
 				%td
-					= student.car_pool.presence || "-"
+					- if  student.car_pool.present?
+						= student.car_pool.name 
+					- else
+						="-"
 				%td
 					- if params[:controller] == 'students' && student.user.id == current_user.id
 						= link_to "delete", delete_student_path(student.id), method: :post, remote: true
