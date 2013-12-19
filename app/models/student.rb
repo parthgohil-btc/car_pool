@@ -2,7 +2,8 @@ class Student < ActiveRecord::Base
   attr_accessible :car_pool_id, :name, :school_id, :stardard, :user_id
 
   validates :name, :school_id, :stardard, :user_id, presence: true
-  validates :school_id, :stardard, :user_id, numericality: { only_integer: true }, :inclusion => { :in => 1..12 }
+  validates :school_id, :stardard, :user_id, numericality: { only_integer: true }
+  validates :stardard, :inclusion => { :in => 1..12 }
 	# validates :school_id, :car_pool_id,
   belongs_to :car_pool
   belongs_to :school
