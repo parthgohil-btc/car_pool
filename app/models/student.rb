@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
 
   validates :name, :school_id, :stardard, :user_id, presence: true
   validates :school_id, :stardard, :user_id, numericality: { only_integer: true }
-  validates :stardard, :inclusion => { :in => 1..12 }
+  # validates :stardard, :inclusion => { :in => 1..12 }
 	# validates :school_id, :car_pool_id,
   belongs_to :car_pool
   belongs_to :school

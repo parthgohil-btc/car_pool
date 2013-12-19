@@ -102,7 +102,7 @@ class CarPoolsController < ApplicationController
         student.update_attributes(car_pool_id: car_pool.id)
       end
       @car_pool = CarPool.find(params[:id])
-      current_user.car_pool_users.create(car_pool_id: car_pool.id) unless current_user.car_pool_users.where(car_pool_id: @car_pool.id).any?
+      current_user.car_pool_users.create(car_pool_id: @car_pool.id) unless current_user.car_pool_users.where(car_pool_id: @car_pool.id).any?
       # @students = Student.where(school_id: @car_pool.school_id)
     else
       flash[:notice] = "Please select the student"
