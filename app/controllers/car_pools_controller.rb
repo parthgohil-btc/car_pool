@@ -152,6 +152,8 @@ class CarPoolsController < ApplicationController
     @distance = params[:distance].presence || 2
     @car_pools = CarPool.where(id: car_pools_id).uniq.page(params[:page]).per(5)
     # @students = @students.flatten
+    Rails.logger.info "near_by_address ------------#{near_by_address}"
+    Rails.logger.info "current_user_address---------#{current_user_address}"
     addresses = [near_by_address, current_user_address, school]
   end
 
@@ -172,6 +174,7 @@ class CarPoolsController < ApplicationController
     end
     distance = addresses[1].distance_from([addresses[2].address.latitude, addresses[2].address.longitude])
     @hash << { lat: addresses[2].address.latitude, lng: addresses[2].address.longitude, infowindow:  "#{addresses[2].name} distance is #{distance.round(3)}", picture: { url: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=s|F00000|000000", width: 33, height: 32 }}
+    Rails.logger.info "search_car_pool--hash-----------#{@hash}"
   end
 
   def school_list(students)
