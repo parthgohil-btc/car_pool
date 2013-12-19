@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_filter :authenticate_user!, :check_address_and_profile, except: :index
+  before_filter :authenticate_user!, :check_address_and_profile
   
   def index
     @students = current_user.students
@@ -12,11 +12,11 @@ class StudentsController < ApplicationController
   def create
     student = Student.create(name: params[:student][:name], user_id: current_user.id, stardard: params[:student][:stardard].to_i, school_id: params[:student][:school_id].to_i)
     if student.save
-      flash[:notice] = "new student created successfully"
+      flash.now[:notice] = "new student created successfully"
       @students = current_user.students
       # redirect_to root_path
     else
-      flash[:alert] = "student create failed"
+      flash.now[:alert] = "student create failed"
       @student = Student.new(params[:student])
       render :new
     end
@@ -31,6 +31,12 @@ class StudentsController < ApplicationController
   def delete
     student = Student.find(params[:id])
     if student.present?
+      if student.schedule.present?
+        Schedule.set_schedule(student.car_pool)
+      end
+      if student.car_pool.present? && !student.car_pool.students.present?
+        student.car_pool.destroy
+      end
       student.destroy
       @students = current_user.students
       flash.now[:notice] = "student deleted successfully"
@@ -42,7 +48,7 @@ class StudentsController < ApplicationController
   def update
     @student = Student.find(params[:id])
     if @student.update_attributes(params[:student])
-      flash.now[:notice] = "student updated successfully"
+      flash.now[:notice] = "student details updated"
       @students = current_user.students
     else
       flash.now[:alert] = "please check student details fields"
