@@ -10,7 +10,6 @@ class StudentsController < ApplicationController
   end
 
   def create
-    logger.info "------params[:student][:school_id].nil?---..#{params[:student][:school_id]}-/-------#{params[:student][:school_id].nil?}"
     student = Student.new(name: params[:student][:name], user_id: current_user.id, stardard: params[:student][:stardard].to_i, school_id: params[:student][:school_id].to_i)
     if !params[:student][:stardard].empty? && student.save
       flash.now[:notice] = "new student created successfully"
@@ -48,7 +47,11 @@ class StudentsController < ApplicationController
 
   def update
     @student = Student.find(params[:id])
-    if @student.update_attributes(params[:student])
+    if params[:student][:stardard].present? && params[:student][:school_id].present?
+      params[:student][:stardard] = params[:student][:stardard].to_i
+      params[:student][:school_id] = params[:student][:school_id].to_i
+    end
+    if params[:student][:stardard].present? && params[:student][:school_id].present? && @student.update_attributes(params[:student])
       flash.now[:notice] = "student details updated"
       @students = current_user.students
     else
