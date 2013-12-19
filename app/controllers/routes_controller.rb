@@ -1,5 +1,5 @@
 class RoutesController < ApplicationController
-  before_filter :authenticate_user!,  except: :index
+  before_filter :authenticate_user!, :check_address_and_profile, except: :index
 
   def index
     if user_signed_in?
