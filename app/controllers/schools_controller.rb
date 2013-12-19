@@ -6,20 +6,23 @@ class SchoolsController < ApplicationController
   end
 
   def create
-    address = Address.create(address: params["school"]["name"] + ', ' + params[:address], role: "school")
-    if address.save
+    address = Address.new(address: params["school"]["name"] + ', ' + params[:address], role: "school")
+    if params[:address].present? && address.save
       params[:school][:address_id] = address.id
-      school = School.create(params[:school])
+      school = School.new(params[:school])
       if school.save
         @schools = School.all
         flash.now[:notice] = "School created"
       else
+        @school = School.new(params[:school])
         address.destroy
-        render "new"
         flash.now[:alert] = "Error has ocurred"
+        render "new"
       end
     else
-
+      @school = School.new(params[:school])
+      flash.now[:alert] = "Error has ocurred"
+      render "new"
     end
   end
 
