@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216063552) do
+ActiveRecord::Schema.define(:version => 20131220064348) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(:version => 20131216063552) do
     t.datetime "updated_at", :null => false
     t.string   "role"
   end
+
+  create_table "car_pool_students", :force => true do |t|
+    t.integer  "invited_student"
+    t.integer  "car_pool_invite"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "car_pool_students", ["car_pool_invite", "invited_student"], :name => "index_car_pool_students_on_car_pool_invite_and_invited_student", :unique => true
+  add_index "car_pool_students", ["car_pool_invite"], :name => "index_car_pool_students_on_car_pool_invite"
+  add_index "car_pool_students", ["invited_student"], :name => "index_car_pool_students_on_invited_student"
 
   create_table "car_pool_users", :force => true do |t|
     t.integer  "car_pool_id"
@@ -42,6 +53,17 @@ ActiveRecord::Schema.define(:version => 20131216063552) do
     t.integer  "school_id"
   end
 
+  create_table "invites", :force => true do |t|
+    t.integer  "invited_student"
+    t.integer  "car_pool_invite"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "invites", ["car_pool_invite", "invited_student"], :name => "index_invites_on_car_pool_invite_and_invited_student", :unique => true
+  add_index "invites", ["car_pool_invite"], :name => "index_invites_on_car_pool_invite"
+  add_index "invites", ["invited_student"], :name => "index_invites_on_invited_student"
+
   create_table "profiles", :force => true do |t|
     t.string   "father_name"
     t.string   "mother_name"
@@ -50,6 +72,14 @@ ActiveRecord::Schema.define(:version => 20131216063552) do
     t.integer  "user_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+  end
+
+  create_table "requests", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.integer  "address_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "schedules", :force => true do |t|

@@ -5,4 +5,4 @@
 			= render :partial => 'school_form', locals: { school: school }
 			%dt
 			%dd
-				= school.button 'Submit', class: "btn btn-primary"
+				= school.button 'Create', class: "btn btn-primary", disable_with: 'creating...'

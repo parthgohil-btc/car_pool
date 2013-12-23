@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
   has_many :students, dependent: :destroy
   has_many :car_pool_users
   has_many :car_pools, through: :car_pool_users
+  has_many :requests
 end

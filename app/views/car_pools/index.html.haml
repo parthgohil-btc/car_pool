@@ -5,6 +5,8 @@
 				.nav.pull-left
 					%a.btn.btn-primary{ :href => new_car_pool_path, "data-remote" => true, method: :post }
 						Create car pool
+					%a.btn.btn-primary{ :href => invite_path, method: :get }
+						Search student for car pool
 			#car-pool-index= render partial: 'car_pool_index', locals: { car_pools: @car_pools, action: "show_car_pools" }
 		-else
 			%h3 No student found

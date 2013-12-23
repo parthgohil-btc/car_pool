@@ -38,6 +38,7 @@ class CarPoolsController < ApplicationController
     @students = Student.where(car_pool_id: params[:id])
     @distance = params[:distance]
     @school_id = params[:school_id]
+    @car_pool_id = params[:car_pool_id]
   end
 
   def search_car_pool
@@ -116,6 +117,35 @@ class CarPoolsController < ApplicationController
   def show_searched_car_pools
     find_addresses
   end
+
+  def invite
+    @car_pools = current_user.car_pools
+
+  end
+
+  def invite_student
+    student = Student.find(params[:student_id])
+    car_pool = CarPool.find(params[:car_pool_id])
+    if car_pool.invites.where(invited_student: params[:student_id].to_i).any?
+      flash.now[:alert] = "Invitation allready present"
+    else
+      invite = car_pool.invites.build(invited_student: params[:student_id].to_i)
+      if !student.car_pool.present? && invite.save
+        flash.now[:alert] = "Invitation send"
+      else
+        flash.now[:notice] = 'Invitation failed'
+      end
+    end
+    @students = student.user.students
+    @car_pool_id = car_pool.id
+  end
+
+  def search_students
+    @action = "search_students"
+    params[:school_id] = CarPool.find(params[:car_pool]).school.id
+    map
+    logger.info "---------------#{params[:car_pool]}"
+  end
   
   private
 
@@ -163,14 +193,14 @@ class CarPoolsController < ApplicationController
       marker.lat address.latitude
       marker.lng address.longitude
       distance = addresses[1].distance_from([address.latitude, address.longitude])
-      Rails.logger.info "-address.user----#{address.user}"
-      Rails.logger.info "-current_user----#{current_user}"
+      Rails.logger.info "-address.user----#{address.user}.inspect"
+      Rails.logger.info "-current_user----#{current_user}.inspect"
       if distance == 0 && address.user == current_user
         infowindow = "me"
         set_map_bubble(marker, "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=me|F00000|000000")
       else
         set_map_bubble(marker, "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|F00000|000000")
-        infowindow = "#{current_user.email} #{(distance).round(3)} km from you"
+        infowindow = "<a href='/students/#{addresses[2].id}/#{address.user.id}/#{params[:car_pool].presence || 0}/#{@action}/show', data-remote= 'true'>#{address.user.email}</a>".html_safe + " #{(distance).round(3)} km from you"
       end
       marker.infowindow infowindow
     end

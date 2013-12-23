@@ -5,8 +5,13 @@ class CarPool < ActiveRecord::Base
   validates :number_of_member, :member_limit, numericality: { only_integer: true }
   
   has_many :students, :dependent => :nullify
-  has_many :car_pool_users
+  has_many :car_pool_users, dependent: :destroy
   has_many :users, through: :car_pool_users
+
+  has_many :invites, foreign_key: :car_pool_invite, dependent: :destroy
+  has_many :invited_students, through: :invites, source: :student
+  # has_many :students, through: :car_pool_students
+
   belongs_to :school
   has_one :schedule, dependent: :destroy
 

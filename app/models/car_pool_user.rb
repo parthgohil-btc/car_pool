@@ -4,5 +4,5 @@ class CarPoolUser < ActiveRecord::Base
   validates :car_pool_id, :user_id, numericality: { only_integer: true }, presence: true
   
   belongs_to :user
-  belongs_to :car_pool
+  belongs_to :car_pool, dependent: :destroy
 end

@@ -1,0 +1,31 @@
+.row.row-width-1100
+	.span5.col-md-offset-1
+		%h4 Invitation
+		%table.table.table-hover
+			%th
+				From
+			%th
+				To
+			%th
+				Car Pool Group
+			%th
+				School
+			%th
+			%th
+				- if invites.present?
+					- invites.each do |invite|
+						%tr
+							%td
+								= invite.student.user.email
+							%td
+								= invite.student.name
+							%td
+								= link_to invite.car_pool.name, invitation_path(invite.id), remote: true
+							%td
+								= invite.student.school.name
+							%td
+								= link_to "accept", accept_invitation_path(invite.id), remote: true, method: :post, disable_with: 'accepting...'
+							%td
+								= link_to "reject", reject_invitation_path(invite.id), remote: true, method: :post, disable_with: 'rejecting...'
+		- unless invites.present?
+			%h3 No invitation

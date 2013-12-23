@@ -13,24 +13,32 @@ Routes::Application.routes.draw do
   get '/car_pools/show_car_pools', to: 'car_pools#show_car_pools', as: 'show_car_pools'
   get '/car_pools/show_searched_car_pools', to: 'car_pools#show_searched_car_pools', as: 'show_searched_car_pools'
   get '/car_pools/:id/:school_id/:distance/:pre_action/show', to: 'car_pools#show', as: 'show_car_pool'
+  get '/car_pools/invite', to: 'car_pools#invite', as: 'invite'
+  get '/car_pools/search_students', to: 'car_pools#search_students', as: 'search_students'
+  get '/car_pools/:student_id/:car_pool_id/invite_student', to: 'car_pools#invite_student', as: 'invite_student'
   resources :car_pools
 
+  resources :invitations
+  get '/invitations/:id/:school_id/select', to: 'invitations#select', as: 'select_invitation'
+  post '/invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
+  post '/invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
+
   resources :schedules
-
-
-  get '/schools/index', to: 'schools#index', as: 'schools_index'
-  post '/schools/create', to: 'schools#create', as: 'create_school'
+  resources :requests
+  get 'requests/:id/accept', to: 'requests#accept', as: 'accept_request'
+  get 'requests/:id/reject', to: 'requests#reject', as: 'reject_request'
 
   get '/schools/new', to: 'schools#new', as: 'new_school'
-  
   get '/students/index', to: 'students#index', as: 'students_index'
   post '/students/create', to: 'students#create', as: 'create_student'
   post '/students/new', to: 'students#new', as: 'new_student'
   post '/students/:id/update', to: 'students#update', as: 'update_student'
   post '/students/:id/delete', to: 'students#delete', as: 'delete_student'
-  get "/students/show"
+  get '/students/:school_id/:user_id/:car_pool_id/:pre_action/show', to: 'students#show', as: 'show_students'
   resources :students
 
+  get '/schools/index', to: 'schools#index', as: 'schools_index'
+  post '/schools/create', to: 'schools#create', as: 'create_school'
   get "/schools/show"
   get "/schools/search"
   post '/schools/:id/delete', to: 'schools#delete', as: 'delete_school'

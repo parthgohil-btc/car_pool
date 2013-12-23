@@ -1,0 +1,2 @@
+$('#dialog').html('<%= escape_javascript(render :partial => 'select_students', :locals => { students: @students }) %>');
+$('#dialog').dialog({ height: 400,width: 400, modal: true, title: "Request Student" });

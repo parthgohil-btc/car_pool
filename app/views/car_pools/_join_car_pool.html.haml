@@ -10,4 +10,4 @@
 						= check_box_tag 'students_id[]', student.id, false, :class => "#{student.school_id} students_check_box"
 						= student.name
 						%br
-				= submit_tag 'Submit', class: "btn btn-primary"
+				= submit_tag 'Submit', class: "btn btn-primary", disable_with: 'Submiting...'

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  invited_student: 1
+  car_pool_invite: 1
+
+two:
+  invited_student: 1
+  car_pool_invite: 1

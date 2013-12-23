@@ -3,6 +3,7 @@ class Address < ActiveRecord::Base
 
   has_one :user
   has_one :school, dependent: :destroy
+  has_one :request
 
   geocoded_by :address
   after_validation :geocode

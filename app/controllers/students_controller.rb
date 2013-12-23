@@ -26,6 +26,10 @@ class StudentsController < ApplicationController
   end
 
   def show
+    user = User.find(params[:user_id])
+    @students = user.students.where(school_id: params[:school_id])
+    @action = params[:pre_action]
+    @car_pool_id = params[:car_pool_id]
   end
 
   def delete

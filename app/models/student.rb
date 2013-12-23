@@ -10,7 +10,14 @@ class Student < ActiveRecord::Base
   belongs_to :user
   has_one :schedule, :dependent => :nullify
 
+  has_many :invites, foreign_key: :invited_student
+  has_many :car_pool_invites, through: :invites, source: :car_pool
+
   scope :students_dont_have_join_car_pool, -> { where car_pool_id: nil }  
   scope :find_students, lambda { |student_ids| where('id = ?', student_ids) }
+  # after_update :logger
 
+  # def logger
+  #   Rails.logger.info "-#{self.name}-loggerloggerlogger--"
+  # end
 end

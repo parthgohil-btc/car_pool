@@ -11,4 +11,4 @@
 			%td
 				= school.address.address
 			%td
-				= link_to "delete", delete_school_path(school.id), method: :post, remote: true
+				= link_to "delete", delete_school_path(school.id), method: :post, remote: true, disable_with: 'deleting...'

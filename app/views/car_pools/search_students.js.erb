@@ -1,0 +1,10 @@
+$('#student-search-map').html('<%= escape_javascript(render :partial => 'routes/map', :locals => { hash: @hash }) %>');
+// $('#same-school-student-nearby').html('<%= escape_javascript(render :partial => 'students/students_index', :locals => { students: @students }) %>');
+coordinates = $("#locations_coordinates").attr('value');
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers($.parseJSON(coordinates));
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(15);
+});

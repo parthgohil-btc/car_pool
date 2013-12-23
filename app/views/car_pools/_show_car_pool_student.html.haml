@@ -21,4 +21,4 @@
 					= student.user.address.address
 				%td
 					-if student.user.id == current_user.id && @action == "index"
-						= link_to "leave the car pool", leave_car_pool_path(student.id, @students.size, @school_id, @distance), method: :post, remote: true
+						= link_to "leave the car pool", leave_car_pool_path(student.id, @students.size, @school_id, @distance), method: :post, remote: true, disable_with: 'leaving the car pool...'

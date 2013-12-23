@@ -6,4 +6,4 @@
 	= student.collection_select :school_id, School.all, :id, :name, prompt: true
 %dt Standard:
 %dd
-	= student.select(:stardard, (1..12).step(1).to_a)
+	= student.select(:stardard, (1..12).step(1))

@@ -1,0 +1,7 @@
+.row
+	.span5.col-md-offset-1
+		= form_for(@request, method: :post, remote: true) do |request|
+			= render :partial => 'schools/school_form', locals: { school: request }
+			%dt
+			%dd
+				= request.button 'Submit', class: "btn btn-primary", disable_with: 'Submiting...'

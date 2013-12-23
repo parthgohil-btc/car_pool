@@ -5,4 +5,4 @@
 			= render :partial => 'student_form', locals: { student: student }
 			%dt
 			%dd
-				= student.button 'update', class: "btn btn-primary"
+				= student.button 'update', class: "btn btn-primary", disable_with: 'updating...'

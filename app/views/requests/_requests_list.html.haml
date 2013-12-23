@@ -1,0 +1,27 @@
+.row.row-width-1100
+	.span5.col-md-offset-1
+		%h4 School Request
+		%table.table.table-hover
+			%th
+				From
+			%th
+				School
+			%th
+				Address
+			%th
+			%th
+				- if @requests.present?
+					- @requests.each do |request|
+						%tr
+							%td
+								= request.user.email
+							%td
+								= request.name
+							%td
+								= link_to request.address.address, request_path(request.id), remote: true
+							%td
+								= link_to 'accept', accept_request_path(request.id), remote: true, disable_with: 'accepting...'
+							%td
+								= link_to 'reject', reject_request_path(request.id), remote: true, disable_with: 'rejecting...'
+		- unless @requests.present?
+			%h3 No requests

@@ -1,0 +1,10 @@
+$('#dialog').html('<%= escape_javascript(render partial: 'routes/map', locals: { hash: @hash}) %>');
+$('#dialog').dialog({ height: 500,width: 905, modal: true, title: "Map" });
+coordinates = $("#locations_coordinates").attr('value');
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers($.parseJSON(coordinates));
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(15);
+});

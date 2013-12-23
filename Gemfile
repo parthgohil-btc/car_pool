@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
 
-gem "twitter-bootstrap-rails", "2.2.7"
+# gem "twitter-bootstrap-rails", "2.2.7"
 
 gem 'kaminari-bootstrap', '3.0.1'
 
